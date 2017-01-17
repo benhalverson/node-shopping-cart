@@ -16,7 +16,9 @@
     "cors": "2.8.1",
     "express": "4.14.0",
     "mongoose": "4.7.7",
-    "morgan": "1.7.0"
+    "morgan": "1.7.0",
+    "passport": "0.3.2",
+    "stripe": "4.14.0"
   },
   "devDependencies": {
     "babel-cli": "6.18.0",

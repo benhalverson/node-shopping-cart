@@ -2,12 +2,18 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import passport from 'passport';
 // import config from 'config.local';
 import logger from 'morgan';
 // import routes from './routes/index';
 import Product from '../models/product';
-const app = express();
+// import User from '../models/user';
+import Order from '../models/order';
 
+const app = express();
+const stripe = require("stripe")(
+  "sk_test_5PEJEgn4aQavdoBAwiugPHsz"
+);
 
 mongoose.connect('mongodb://localhost/productdb');
 
@@ -101,6 +107,18 @@ app.delete('/cart/delete/:product_id', (req, res) => {
   });
 });
 
+
+app.post('/checkout', (req, res) => {
+  stripe.charges.create({
+  amount: 2000, // product.price
+  currency: "usd",
+  source: req.body.stripeToken,
+  description: 'test' // product.description
+}, (err, charge) => {
+    console.log('err', err);
+    console.log('charge', charge);
+  });
+})
 //fix this later...
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
