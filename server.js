@@ -76,11 +76,31 @@ app.put('/cart/update/:product_id', (req, res) => {
         } else {
           res.json({message: 'Product updated'});
         }
-      })
-
+      });
     }
   });
 });
+
+app.delete('/cart/delete/:product_id', (req, res) => {
+  Product.findById(req.params.product_id, (err, product)=> {
+    if(err) {
+      console.error(`Can not find the id ${req.params.product_id}, ${err}`);
+    } else {
+      product.name = req.body.name;
+      product.description = req.body.description;
+      product.price = req.body.price;
+      product.imageurl = req.body.imageurl;
+      product.remove((err) => {
+        if(err) {
+          res.send({error: err});
+        } else {
+          res.json({message: 'Product deleted'});
+        }
+      });
+    }
+  });
+});
+
 //fix this later...
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
