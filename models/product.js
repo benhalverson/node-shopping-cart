@@ -1,10 +1,16 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-let PoductSchema = new Schema({
+const ProductSchema = new Schema({
   name: String,
   description: String,
   price: Number,
   imageurl: String
 });
 
-modeule.exports = mongoose.model('Product', ProductSchema);
+var Product = mongoose.model('Product', ProductSchema);
+
+module.exports = Product;
+// module.exports = mongoose.model('Product', Product);
+
+// var M = mongoose.model('Person', schema);
+// var m = new M({ name: 'Max Headroom' });
